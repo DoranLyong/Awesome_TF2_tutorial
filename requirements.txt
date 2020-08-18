@@ -1,4 +1,5 @@
-coloredlogs 
+coloredlogs
+easydict  
 numpy 
 matplotlib 
 easydict
