@@ -42,7 +42,7 @@ if __name__ =="__main__":
     logging.info(f"image shape: {img.shape}")
     logging.info(f"label dtype: {train_y[0].dtype}")
 
-    imshow(train_x[0], train_y[0])
+    imshow(img=train_x[0], label=train_y[0])
 
     
     # == Data Channel shape == # 
@@ -86,7 +86,7 @@ if __name__ =="__main__":
 
     logging.info(f"dtype of the image: {type(disp)}")  # the loaded image is <nparray>
     logging.info(f"squeeze the sigle dim: {np.squeeze(disp).shape}")
-    imshow(np.squeeze(disp), 'reduced_dims')
+    imshow(img=np.squeeze(disp), label='reduced_dims')
 
     print()
 
@@ -113,7 +113,7 @@ if __name__ =="__main__":
     logging.info(f"onehot_label : {onehot_label}")
 
 
-    imshow(image = train_x[0], label = onehot_label)
+    imshow(img = train_x[0], label = onehot_label)
     
 
 
