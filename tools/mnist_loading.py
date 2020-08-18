@@ -85,7 +85,7 @@ if __name__ =="__main__":
 
     logging.info(f"dtype of the image: {type(disp)}")  # the loaded image is <nparray>
     logging.info(f"squeeze the sigle dim: {np.squeeze(disp).shape}")
-    imshow(np.squeeze(disp), 000)
+    imshow(np.squeeze(disp), 'reduced_dims')
 
     
 
