@@ -3,3 +3,4 @@ numpy
 matplotlib 
 easydict
 scikit-learn 
+tensorflow 
