@@ -10,7 +10,7 @@ coloredlogs.install(level="INFO", fmt="%(asctime)s %(filename)s %(levelname)s %(
 
 
 def imshow(img, label): 
-    fig, ax = plt.subplots(figsize=(8,8))
+    fig, ax = plt.subplots(figsize=(3,3))
     ax.imshow(img, cmap=None)
     plt.axis("off")    
     plt.title(label)    
