@@ -39,7 +39,60 @@ if __name__ =="__main__":
     """
     img = train_x[0] 
     logging.info(f"image shape: {img.shape}")
+    logging.info(f"label dtype: {train_y[0].dtype}")
+
     imshow(train_x[0], train_y[0])
+
+    
+    # == Data Channel shape == # 
+    """ 
+    tf.Tensor's array order  :
+                                [Batch, Heigh, Width, Channel]
+    1. expand dimensions : 
+                            with 'numpy' method  : np.expand_dims(<array>, dim)
+                            with 'tf' method : tf.expand_dims(<Tensor>, dim)
+                                               tf.newaxis 
+    """
+    given_data = train_x
+    logging.info(f"check given data shape: {given_data.shape}")
+
+    expanded_data = np.expand_dims(given_data, -1)    # -1 : add dim at the end 
+    logging.info(f"expanded dim at the end axis: {expanded_data.shape}")
+    logging.info(f"expanded dim at 0th axis: {np.expand_dims(given_data, 0).shape}")
+
+    expanded_tensor = tf.expand_dims(given_data, -1)
+    logging.info(f"expanded dim of Tensor at the end axis : {expanded_tensor.shape}")
+    logging.info(given_data[...,tf.newaxis].shape)   # by official homage
+    logging.info(given_data.shape)
+
+    print()
+
+    """
+    2. reduce dimensions :  
+                            for imshow 
+    if given gray-image has [28, 28, 1] dimension, 
+    it should be reshape as [28, 28]
+
+                                        : explicite with indexing 
+                                        : np.squeeze()   reduce the single dimension
+    """
+    new_train_x = train_x[..., tf.newaxis] 
+    logging.info(f"Before reducing dimensions: {new_train_x.shape}")
+
+    disp = new_train_x[0]
+    logging.info(f"This shape of gray image makes error for visualization: {disp.shape}")  # [28, 28, 1]
+    logging.info(disp[:,:,0].shape)  # explicite one channel element 
+
+    logging.info(f"dtype of the image: {type(disp)}")  # the loaded image is <nparray>
+    logging.info(f"squeeze the sigle dim: {np.squeeze(disp).shape}")
+    imshow(np.squeeze(disp), 000)
+
+    
+
+    
+
+
+
 
 
 
