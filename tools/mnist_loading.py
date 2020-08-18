@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt 
 import tensorflow as tf 
 from tensorflow.keras import datasets
+from tensorflow.keras.utils import to_categorical
 
 coloredlogs.install(level="INFO", fmt="%(asctime)s %(filename)s %(levelname)s %(message)s")
 
@@ -87,7 +88,35 @@ if __name__ =="__main__":
     logging.info(f"squeeze the sigle dim: {np.squeeze(disp).shape}")
     imshow(np.squeeze(disp), 'reduced_dims')
 
+    print()
+
+    # === Label Dataset Analysis === # 
+
+    logging.info(f"train_y shape : {train_y.shape} ")
+    logging.info(f"0th label data: {train_y[0]}")
+    logging.info(f"dype of it : {train_y[0].dtype}")
+
     
+
+    # === One-Hot Encoding === # 
+    """ ex_ Classification task for 5 classes : [0, 0, 0, 1, 0] or [1, 0, 0, 0, 0] etc. 
+
+    1. simple_method :  tensorflow.keras.utils.to_categorical 
+    """
+
+    onehot4one = to_categorical(y=1, num_classes=10)
+    logging.info(f"OneHot encoding: {onehot4one}")
+
+    label = train_y[0]  
+    onehot_label = to_categorical(y=label, num_classes=10)
+    logging.info(f"label : {label}")
+    logging.info(f"onehot_label : {onehot_label}")
+
+
+    imshow(image = train_x[0], label = onehot_label)
+    
+
+
 
     
 
