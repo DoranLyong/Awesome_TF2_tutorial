@@ -112,6 +112,6 @@ if __name__ == "__main__":
     """
     weight, bias = layer.get_weights()
     logging.info(f"weight_shape, bias_shape : {weight.shape}, {bias.shape}")
-    #featuremap_show(output=output, weight=weight)
+    featuremap_show(output=output, weight=weight)
     hist(output)
     
