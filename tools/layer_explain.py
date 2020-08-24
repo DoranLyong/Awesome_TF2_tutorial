@@ -24,7 +24,7 @@ def featuremap_show(output, weight):
     plt.figure(figsize=(15,3))
     plt.subplots(131)
     plt.title("feature_map hist.")
-    plt.hist(output.numpy().ravel(), range=[np.min(output[0,:,:,0]), np.max(output[0,:,:,0])])
+    #plt.hist(output.numpy().ravel(), range=[np.min(output[0,:,:,0]), np.max(output[0,:,:,0])])
     plt.ylim(0, 100)
     
     plt.subplot(132)
@@ -38,7 +38,10 @@ def featuremap_show(output, weight):
     plt.show()
     plt.close()
     
-
+def hist(output):
+    plt.figure(figsize=(15,3))
+    plt.hist(output.numpy().ravel())
+    plt.show()
 
 
 
@@ -109,5 +112,6 @@ if __name__ == "__main__":
     """
     weight, bias = layer.get_weights()
     logging.info(f"weight_shape, bias_shape : {weight.shape}, {bias.shape}")
-    featuremap_show(output=output, weight=weight)
+    #featuremap_show(output=output, weight=weight)
+    hist(output)
     
