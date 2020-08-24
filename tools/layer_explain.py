@@ -77,6 +77,6 @@ if __name__ == "__main__":
     logging.info(f"output feature_maps : ")
     logging.info(output)
 
-    imshow(image=output[0, :, :,0], label="feature_map")
+    imshow(image=output[0, :, :,3], label="feature_map")
 
     
