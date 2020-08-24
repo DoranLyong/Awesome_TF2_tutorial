@@ -45,8 +45,38 @@ if __name__ == "__main__":
     """
     Given MNIST-image shape is (28, 28). 
     However, it's not suitable for CNN. 
-    It should have [batch, height, width, channel] shape 
+    It should have [batch, height, width, channel] shape for tensorflow Conv-layer 
     """
     image_batch = img[tf.newaxis, ..., tf.newaxis]
-    logging.info(image_batch.shape)
+    logging.info(f"batch data: {image_batch.shape}")
+
+    # === Feature Extraction === # 
+    """
+    1. convolution parameters:   
+                                -filters : how many filters are made out of layers (a.k.a., weights, filters, channels)
+                                -kernel_size : filter(weight) size 
+                                -strides : how many pixels are skipped when the filter passing over
+                                -padding : zero padding, VALID(=no padding), SAME(=same size like before)
+                                -activation : Activation Function (= It can be made in sperated layer)
+    
+    Usage : tf.keras.layers.Conv2D()
+
+
+    2. pooling (= subsampling)
+    """
+    tf.keras.layers.Conv2D(filters=3, kernel_size=(3, 3), strides=(1, 1), padding='SAME', activation='relu')
+    
+
+    """ 
+    filter visualization 
+    """
+    image = tf.cast(image_batch, dtype=tf.float32) # for convolution operation 
+    layer = tf.keras.layers.Conv2D(filters=5, kernel_size=(3,3), strides=(1,1), padding='SAME', activation='relu')
+    output = layer(image)
+
+    logging.info(f"output feature_maps : ")
+    logging.info(output)
+
+    imshow(image=output[0, :, :,0], label="feature_map")
+
     
