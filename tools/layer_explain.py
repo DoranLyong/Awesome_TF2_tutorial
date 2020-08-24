@@ -20,6 +20,24 @@ def imshow(image, label):
     plt.show()
     plt.close(fig)
 
+def featuremap_show(output, weight): 
+    fig, ax = plt.subplots(figsize=(3,3))
+    ax.subplots(131)
+    plt.hist(output.numpy().ravel(), range=[-2, 2])
+    plt.ylim(0, 100)
+    
+    ax.subplot(132)
+    plt.title(weight.shape)
+    ax.imshow(weight[:, :, 0, 0], cmap=None)
+
+    ax.subplot(133)
+    plt.title(output.shape)
+    ax.imshow(output[0, :, :, 0], cmap=None)
+    plt.colorbar()
+    plt.show()
+    plt.close(fig)
+
+
 
 
 
@@ -70,13 +88,24 @@ if __name__ == "__main__":
     """ 
     filter visualization 
     """
-    image = tf.cast(image_batch, dtype=tf.float32) # for convolution operation 
+    image_batch = tf.cast(image_batch, dtype=tf.float32) # for convolution operation 
     layer = tf.keras.layers.Conv2D(filters=5, kernel_size=(3,3), strides=(1,1), padding='SAME', activation='relu')
-    output = layer(image)
+    output = layer(image_batch)
 
     logging.info(f"output feature_maps : ")
     logging.info(output)
 
-    imshow(image=output[0, :, :,3], label="feature_map")
+    imshow(image=output[0, :, :,0], label="feature_map")
 
+    logging.info(f"min-max range of input:{np.min(image_batch)}, {np.max(image_batch)}")
+    logging.info(f"min-max range of feature_map:{np.min(output[0,:,:,0])}, {np.max(output[0,:,:,0])}")
+
+
+    """
+    To get weights(=filter) : 
+                                - layer.get_weights() 
+    """
+    weight, bias = layer.get_weights()
+    logging.info(f"weight_shape, bias_shape : {weight.shape}, {bias.shape}")
+    featuremap_show(output=output, weight=weight)
     
