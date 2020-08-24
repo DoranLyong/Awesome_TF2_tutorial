@@ -21,8 +21,9 @@ def imshow(image, label):
     plt.close(fig)
 
 def featuremap_show(output, weight): 
-    plt.figure(figsize=(3,3))
+    plt.figure(figsize=(15,3))
     plt.subplots(131)
+    plt.title("feature_map hist.")
     plt.hist(output.numpy().ravel(), range=[-2, 2])
     plt.ylim(0, 100)
     
@@ -35,6 +36,7 @@ def featuremap_show(output, weight):
     plt.imshow(output[0, :, :, 0], cmap=None)
     plt.colorbar()
     plt.show()
+    plt.close()
     
 
 
