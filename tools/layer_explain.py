@@ -22,15 +22,15 @@ def imshow(image, label):
 
 def featuremap_show(output, weight): 
     fig, ax = plt.subplots(figsize=(3,3))
-    ax.subplots(131)
+    plt.subplots(131)
     plt.hist(output.numpy().ravel(), range=[-2, 2])
     plt.ylim(0, 100)
     
-    ax.subplot(132)
+    plt.subplot(132)
     plt.title(weight.shape)
     ax.imshow(weight[:, :, 0, 0], cmap=None)
 
-    ax.subplot(133)
+    plt.subplot(133)
     plt.title(output.shape)
     ax.imshow(output[0, :, :, 0], cmap=None)
     plt.colorbar()
