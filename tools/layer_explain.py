@@ -24,7 +24,7 @@ def featuremap_show(output, weight):
     plt.figure(figsize=(15,3))
     plt.subplots(131)
     plt.title("feature_map hist.")
-    plt.hist(output.numpy().ravel(), range=[-2, 2])
+    plt.hist(output.numpy().ravel(), range=[np.min(output[0,:,:,0]), np.max(output[0,:,:,0])])
     plt.ylim(0, 100)
     
     plt.subplot(132)
