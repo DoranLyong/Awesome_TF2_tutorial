@@ -40,7 +40,7 @@ def featuremap_show(output, weight):
     
 def hist(output):
     plt.figure(figsize=(15,3))
-    plt.hist(output.numpy().ravel(), range=(np.max(output), np.min(output)))
+    plt.hist(output.numpy().ravel(), range=(np.min(output), np.max(output)), edgecolor='black')
     plt.show()
 
 
