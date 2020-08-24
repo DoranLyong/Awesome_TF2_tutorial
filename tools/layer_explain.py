@@ -40,13 +40,14 @@ def hist_show(output, title):
     plt.title(title)
     plt.show()
 
-def vis_flatten(flatten):
+def vis_flatten(flatten, title):
     plt.figure(figsize=(10,5))
     plt.subplot(211)
     plt.hist(flatten.numpy().ravel())
     
     plt.subplot(212)
     plt.imshow(flatten[:,:100], 'jet')
+    plt.title(title)
     plt.show()
 
 
@@ -94,7 +95,9 @@ if __name__ == "__main__":
 
     3. fully-connected layer (=dense layer)
 
-    4. Flatten : 
+    4. Flatten 
+
+    5. Dropout
 
     """
     tf.keras.layers.Conv2D(filters=3, kernel_size=(3, 3), strides=(1, 1), padding='SAME', activation='relu')
@@ -128,7 +131,10 @@ if __name__ == "__main__":
 
     # === Activate function === # 
     """
-    Activate layer can be defined in the seperated one. 
+    Activate layer can be defined in the seperated one. : 
+
+                                                            - tf.keras.layers.ReLU()
+                                                            - tf.keras.layers.Activation('relu')
     """
     conv2d_layer = tf.keras.layers.Conv2D(filters=3, kernel_size=(3,3), strides=(1,1), padding='SAME', activation="relu" )
     act_layer = tf.keras.layers.ReLU()
@@ -161,4 +167,27 @@ if __name__ == "__main__":
     flatten = flat_layer(output)
     logging.info(f"shape before flatten: {output.shape}") # Batch x Height x Width x Channel
     logging.info(f"flatten shape of the output: {flatten.shape}") # Batch x flat_vector
-    vis_flatten(flatten)
+    vis_flatten(flatten=flatten, title="flatten")
+
+
+    # === Dense (=fully-connected) === # 
+    """
+    tf.keras.layers.Dense(): 
+                                - units : how many output nodes? 
+                                - activation
+
+    """
+    dense_layer = tf.keras.layers.Dense(32, activation="relu")
+    dense_output = dense_layer(flatten)
+    
+    logging.info(f"dense output: {dense_output.shape}")
+
+
+    # === Dropout === # 
+    """
+    tf.keras.layers.Dropout()
+    """
+    drop_layer = tf.keras.layers.Dropout(0.7) # save 70% nodes 
+    drop_output = drop_layer(dense_output)
+
+    logging.info(f"dropout : {drop_output.shape}")
