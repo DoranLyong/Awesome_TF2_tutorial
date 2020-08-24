@@ -35,7 +35,7 @@ def featuremap_show(output, weight):
     plt.imshow(output[0, :, :, 0], cmap=None)
     plt.colorbar()
     plt.show()
-    plt.close(fig)
+    
 
 
 
