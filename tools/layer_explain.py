@@ -40,6 +40,15 @@ def hist_show(output, title):
     plt.title(title)
     plt.show()
 
+def vis_flatten(flatten):
+    plt.figure(figsize=(10,5))
+    plt.subplot(211)
+    plt.hist(flatten.numpy().ravel())
+    
+    plt.subplot(212)
+    plt.imshow(flatten[:,:100], 'jet')
+    plt.show()
+
 
 
 
@@ -82,6 +91,11 @@ if __name__ == "__main__":
 
 
     2. pooling (= subsampling)
+
+    3. fully-connected layer (=dense layer)
+
+    4. Flatten : 
+
     """
     tf.keras.layers.Conv2D(filters=3, kernel_size=(3, 3), strides=(1, 1), padding='SAME', activation='relu')
     
@@ -138,3 +152,13 @@ if __name__ == "__main__":
     hist_show(output=pool_output, title="MaxPooling")
     imshow(image=pool_output[0,:,:,0], label="MaxPooling")
 
+
+    # === Flatten === # 
+    """
+    tf.keras.layers.Flatten() 
+    """
+    flat_layer = tf.keras.layers.Flatten() 
+    flatten = flat_layer(output)
+    logging.info(f"shape before flatten: {output.shape}") # Batch x Height x Width x Channel
+    logging.info(f"flatten shape of the output: {flatten.shape}") # Batch x flat_vector
+    vis_flatten(flatten)
