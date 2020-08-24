@@ -22,25 +22,22 @@ def imshow(image, label):
 
 def featuremap_show(output, weight): 
     plt.figure(figsize=(15,3))
-    plt.subplots(311)
-    plt.title("feature_map hist.")
-    plt.hist(output.numpy().ravel(), range=(np.min(output), np.max(output)), edgecolor='black')
-    plt.ylim(0, 100)
     
-    plt.subplot(312)
+    plt.subplot(121)
     plt.title(weight.shape)
     plt.imshow(weight[:, :, 0, 0], cmap=None)
 
-    plt.subplot(313)
+    plt.subplot(122)
     plt.title(output.shape)
     plt.imshow(output[0, :, :, 0], cmap=None)
     plt.colorbar()
     plt.show()
     plt.close()
     
-def hist(output):
+def hist_show(output):
     plt.figure(figsize=(15,3))
     plt.hist(output.numpy().ravel(), range=(np.min(output), np.max(output)), edgecolor='black')
+    plt.title("hist. of the output")
     plt.show()
 
 
@@ -113,5 +110,5 @@ if __name__ == "__main__":
     weight, bias = layer.get_weights()
     logging.info(f"weight_shape, bias_shape : {weight.shape}, {bias.shape}")
     featuremap_show(output=output, weight=weight)
-    hist(output)
+    hist_show(output)
     
