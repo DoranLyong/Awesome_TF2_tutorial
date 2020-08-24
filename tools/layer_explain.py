@@ -34,17 +34,16 @@ def featuremap_show(output, weight):
     plt.show()
     plt.close()
     
-def hist_show(output):
+def hist_show(output, title):
     plt.figure(figsize=(15,3))
     plt.hist(output.numpy().ravel(), range=(np.min(output), np.max(output)), edgecolor='black')
-    plt.title("hist. of the output")
+    plt.title(title)
     plt.show()
 
 
 
 
 if __name__ == "__main__":
-
     
     # === Input Image Preprocessing === # 
     """ input feature visualization 
@@ -110,5 +109,32 @@ if __name__ == "__main__":
     weight, bias = layer.get_weights()
     logging.info(f"weight_shape, bias_shape : {weight.shape}, {bias.shape}")
     featuremap_show(output=output, weight=weight)
-    hist_show(output)
+    hist_show(output=output, title="hist. of the output")
     
+
+    # === Activate function === # 
+    """
+    Activate layer can be defined in the seperated one. 
+    """
+    conv2d_layer = tf.keras.layers.Conv2D(filters=3, kernel_size=(3,3), strides=(1,1), padding='SAME', activation="relu" )
+    act_layer = tf.keras.layers.ReLU()
+
+    act_output = act_layer(conv2d_layer(image_batch))  # input -> conv2d -> activate 
+    logging.info(act_output.shape)
+    logging.info(f"feature_map min, max: {np.min(act_output)}, {np.max(act_output)}")
+
+
+    # === Pooling (= subsampling) === # 
+    """
+    tf.keras.layers.MaxPool2D() parameters: 
+                                            - pool_size 
+                                            - strides 
+                                            - padding 
+    """
+    pool_layer = tf.keras.layers.MaxPool2D(pool_size=(2, 2), strides=(2, 2), padding="SAME")
+    pool_output = pool_layer(output)
+    logging.info(f"MaxPooling feature map : {pool_output.shape}")
+
+    hist_show(output=pool_output, title="MaxPooling")
+    imshow(image=pool_output[0,:,:,0], label="MaxPooling")
+
